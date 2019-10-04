@@ -1,0 +1,20 @@
+function Select2(args) {
+	Sactory.Widget.call(this, args);
+	this.args = args;
+}
+
+Select2.prototype = Object.create(Sactory.Widget.prototype);
+
+Select2.prototype.render = function(){
+	return <select />
+};
+
+Select2.prototype.bind = function({value, update}){
+	this.element.$$on("append", () => {
+		const $el = $(this.element).select2(this.args);
+		& => $el.val(*?value).trigger("change", true);
+		$el.on("change", (ev, triggered) => !triggered && update($el.val()));
+	});
+};
+
+return Select2;
